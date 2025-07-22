@@ -8,14 +8,24 @@ function App() {
 
   const handleAddTask = () => {
     if (heading.trim() || body.trim()) {
-      setTasks([...tasks, { heading, body }]);
+      setTasks([...tasks, { heading, body, done: false }]);
       setHeading('');
       setBody('');
     }
   };
 
   const handleDeleteTask = (index) => {
-    setTasks(tasks.filter((_, i) => i !== index));
+    const confirmDelete = window.confirm('Are you sure you want to delete this task?');
+    if (confirmDelete) {
+      setTasks(tasks.filter((_, i) => i !== index));
+    }
+  };
+  
+
+  const toggleDone = (index) => {
+    const updated = [...tasks];
+    updated[index].done = !updated[index].done;
+    setTasks(updated);
   };
 
   return (
@@ -30,7 +40,7 @@ function App() {
           onChange={(e) => setHeading(e.target.value)}
         />
         <textarea
-          placeholder="Enter Tasks"
+          placeholder="Task Description"
           value={body}
           onChange={(e) => setBody(e.target.value)}
           rows={5}
@@ -40,12 +50,17 @@ function App() {
 
       <ul className="task-list">
         {tasks.map((task, index) => (
-          <li key={index} className="task-item">
+          <li key={index} className={`task-item ${task.done ? 'done' : ''}`}>
             <div className="task-content">
               <h3>{task.heading}</h3>
               <pre>{task.body}</pre>
             </div>
-            <button onClick={() => handleDeleteTask(index)}>Delete</button>
+            <div className="task-buttons">
+              <button onClick={() => toggleDone(index)}>
+                {task.done ? 'Undo' : 'Mark as Done'}
+              </button>
+              <button onClick={() => handleDeleteTask(index)}>Delete</button>
+            </div>
           </li>
         ))}
       </ul>

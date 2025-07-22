@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-image: url('/Users/spic/Desktop/fse/simple-todo/public/back.png'); /* use your image file name */
+  background-image: url('/Users/spic/Desktop/fse/simple-todo/public/back.png'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -12,7 +12,10 @@ body {
 .container {
   max-width: 500px;
   margin: 50px auto;
-  font-family: sans-serif;
+  padding: 20px;
+  background-color: #ffdb96;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px #ed916b;
   text-align: center;
 }
 
@@ -44,13 +47,20 @@ body {
 }
 
 .task-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  background-color: #ed916b;
+  background-color: #fefefe;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-shadow: 0 4px 10px rgb(143, 126, 85);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .task-content {
@@ -69,11 +79,40 @@ body {
   word-wrap: break-word;
 }
 
-.task-item button {
-  background-color: #785a51;
-  color: white;
+.task-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.task-buttons button {
+  background-color: #b8f08e;
+  color: black;
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.task-buttons button:hover {
+  background-color: #a0db70; 
+}
+
+.task-buttons button:last-child {
+  background-color: #e74c3c;
+  color: aliceblue !important;
+}
+
+.task-buttons button:last-child:hover {
+  background-color: #c0392b; 
+}
+
+.task-item.done {
+  opacity: 0.6;
+}
+
+.task-item.done .task-content h3,
+.task-item.done .task-content pre {
+  text-decoration: line-through;
 }
